@@ -17,5 +17,10 @@ require __DIR__ . '/../thinkphp/base.php';
 
 // 支持事先使用静态方法设置Request对象和Config对象
 
+define('IF_PUBLIC', true);
+define('ROOT_PATH', __DIR__ . DIRECTORY_SEPARATOR);
+define('APP_PATH', ROOT_PATH . 'application' . DIRECTORY_SEPARATOR);
+define('ROOT_URL', rtrim(dirname($_SERVER["SCRIPT_NAME"]), '\\/') . '/');
+
 // 执行应用并响应
 Container::get('app')->run()->send();
