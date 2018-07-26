@@ -1,4 +1,16 @@
 {include file="public/toper" /}
-<div class="layui-btn layui-btn-primary"> 测试1 </div>
+<div class="layui-btn layui-btn-danger"> 测试1 </div>
 
-{include file="public/footer" /}
+<script>
+    layui.use(['element'], function () {
+        var $ = layui.$
+            , element = layui.element
+            ;
+
+        $(".layui-btn").click(function ($data) {
+            alert("测试");
+        });
+
+    });
+
+</script> {include file="public/footer" /}
