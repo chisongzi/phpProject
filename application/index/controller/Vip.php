@@ -24,4 +24,12 @@ class Vip extends Controller
         $data = $this->model->levelList();
         echo $data;
     }
+
+    public function addLevel(){
+        if(request()->isPost()){
+            $param = input('post.');
+            $this->model = model('index/levelModel');
+            $this->model->addLevel($param);
+        }
+    }
 }

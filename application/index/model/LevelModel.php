@@ -10,7 +10,6 @@ class LevelModel extends BaseModel
 {
     public function level()
     {
-        echo("<script>console.log('model--index--test');</script>");
         $result = DB::table('user_info')->where('user_id', 1)->find();
         $data=[
             'user_id'=>'2'
@@ -23,7 +22,6 @@ class LevelModel extends BaseModel
     public function levelList()
     {
         $data = DB::table('user_level')
-                    // ->field('level_id,level_name')
                     ->field('level_id,level_name,sale_card_amount,validity,function,cards_num')
                     ->select();
 
@@ -35,5 +33,17 @@ class LevelModel extends BaseModel
 
         $return['data'] = $data;
         return json_encode($return);
+    }
+    public function addLevel($param)
+    {
+        $data=[
+            "level_id"=>$param['levelId'],
+            "level_name"=>$param['levelName'],
+            "sale_card_amount"=>$param['saleAmount']
+        ];
+        $result = DB::name('user_level')->insert($data);
+        file_put_contents('log.txt', json_encode($result));
+        return $result;
+
     }
 }

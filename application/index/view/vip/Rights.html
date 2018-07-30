@@ -14,14 +14,15 @@
                                 <div class="layui-inline">
                                     <label class="layui-form-label">级别序号</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" type="text" placeholder="请输入序号" lay-verify="required" autocomplete="off" name="levelId" id="levelId">
+                                        <input class="layui-input" type="text" placeholder="请输入序号" lay-verify="required" autocomplete="off" value="5" name="levelId"
+                                            id="levelId">
                                     </div>
                                 </div>
 
                                 <div class="layui-inline">
                                     <label class="layui-form-label">级别名称</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" type="text" placeholder="请输入级别名称" autocomplete="off" name="levelName" lay-verify="required">
+                                        <input class="layui-input" type="text" placeholder="请输入级别名称" autocomplete="off" name="levelName" value="huangtong" lay-verify="required">
                                     </div>
                                 </div>
                             </div>
@@ -31,14 +32,14 @@
                                 <div class="layui-inline">
                                     <label class="layui-form-label">售卡金额</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" type="text" placeholder="请输入金额" autocomplete="off" name="saleAmount" lay-verify="required">
+                                        <input class="layui-input" type="text" placeholder="请输入金额" autocomplete="off" name="saleAmount" value="50" lay-verify="required">
                                     </div>
                                 </div>
 
                                 <div class="layui-inline">
                                     <label class="layui-form-label">推荐人积分</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" type="text" placeholder="请输入推荐人积分" autocomplete="off" name="referralIntegral" lay-verify="required">
+                                        <input class="layui-input" type="text" placeholder="请输入推荐人积分" autocomplete="off" name="referralIntegral" value="500" lay-verify="required">
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +50,7 @@
                                 <div class="layui-inline">
                                     <label class="layui-form-label">推荐功能</label>
                                     <div class="layui-input-inline">
-                                        <input type="checkbox" lay-skin="switch" lay-text="开启|关闭" name="founctionSwitch">
+                                        <input type="checkbox" lay-skin="switch" lay-text="开启|关闭" value="飘落" name="founctionSwitch">
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +58,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">会员权益</label>
                                 <div class="layui-input-block">
-                                    <input class="layui-input" type="text" placeholder="请输入会员权益" autocomplete="off" name="rights" lay-verify="required">
+                                    <input class="layui-input" type="text" placeholder="请输入会员权益" autocomplete="off" value="沙发上" name="rights" lay-verify="required">
                                 </div>
                             </div>
 
@@ -133,19 +134,22 @@
                     , { field: 'level_name ', title: "级别名称 ", width: 120 }
                     , { field: "sale_card_amount ", title: "售卡金额 ", width: 120 }
                     , { field: "validity ", title: "有效期 ", width: 120 }
-                    // , { field: "referral_integral ", title: "推荐人积分 ", width: 150 }
+                    , { field: "referral_integral ", title: "推荐人积分 ", width: 150 }
                     , { field: "function ", title: "推荐功能 ", width: 120 }
                     , { field: "cards_num ", title: "卡片总数 ", width: 120 }
-                    // , { field: "wx_member ", title: "微信会员 ", width: 120 }
-                    // , { field: "rights ", title: "会员权益 ", width: 120 }
-                    // , { field: "notes ", title: "备注 ", width: 120 }
+                    , { field: "wx_member ", title: "微信会员 ", width: 120 }
+                    , { field: "rights ", title: "会员权益 ", width: 120 }
+                    , { field: "notes ", title: "备注 ", width: 120 }
                 ]]
-                ,page:true
             });
 
 
             form.on('submit(addLevelFilter)', function (data) {
-                layer.alert(JSON.stringify(data.field))
+                var param = data.field;
+                $.post('{:url("vip/addLevel")}', param, function (result) {
+                    if(result == 1){
+                    }
+                });
 
                 return false;
             });
