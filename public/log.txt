@@ -1,0 +1,1 @@
+{"code":0,"msg":"\u6210\u529f","data":[{"id":1,"level_id":1,"level_name":"\u6700\u5f3a\u738b\u8005"},{"id":2,"level_id":2,"level_name":"\u94bb\u77f3\u7ea7\u522b"},{"id":3,"level_id":3,"level_name":"\u9ec4\u91d1\u7ea7\u522b"},{"id":4,"level_id":4,"level_name":"\u767d\u94f6\u7ea7\u522b"}]}

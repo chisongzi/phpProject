@@ -13,6 +13,6 @@ Route::get('think', function () {
 });
 
 Route::get('hello/:name', 'index/hello');
-
+// Route::rule('vip/:name','index/Vip/index');
 return [
 ];
