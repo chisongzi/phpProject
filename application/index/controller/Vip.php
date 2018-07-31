@@ -25,11 +25,43 @@ class Vip extends Controller
         echo $data;
     }
 
-    public function addLevel(){
-        if(request()->isPost()){
+    public function addLevel()
+    {
+        if (request()->isPost()) {
             $param = input('post.');
             $this->model = model('index/levelModel');
-            $this->model->addLevel($param);
+            $result =  $this->model->addLevel($param);
+            echo $result;
+        }
+    }
+    public function deleteLevel()
+    {
+        if (request()->isPost()) {
+            $param = input("post.");
+            // file_put_contents('log.txt', json_encode($param));
+            $this->model = model("index/levelModel");
+            $result = $this->model->deleteLevel($param['id']);
+            return $result;
+        }
+    }
+
+    public function addService()
+    {
+        if (request()->isPost()) {
+            $param = input('post.');
+            $this->model = model("index/ServiceModel");
+            $result = $this->model->addService($param);
+            return $result;
+        }
+    }
+
+    public function deleteService()
+    {
+        if (request()->isPost()) {
+            $param = input('post.');
+            $this->model = model("index/ServiceModel");
+            $result = $this->model->deleteService($param['id']);
+            return $result;
         }
     }
 }

@@ -7,15 +7,14 @@
                 <div class="layui-colla-item">
                     <h2 class="layui-colla-title">会员级别</h2>
                     <div class="layui-colla-content ">
-                        <table class="layui-table" id="levelTable"> </table>
+                        <table class="layui-table" id="levelTable" lay-filter="filterLevelTable"> </table>
                         <form class="layui-form" layui-filter="filterLevelForm" action="" method="POST">
 
                             <div class="layui-form-item">
                                 <div class="layui-inline">
                                     <label class="layui-form-label">级别序号</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" type="text" placeholder="请输入序号" lay-verify="required" autocomplete="off" value="5" name="levelId"
-                                            id="levelId">
+                                        <input class="layui-input" type="text" placeholder="请输入序号" lay-verify="required" autocomplete="off" name="levelId" id="levelId">
                                     </div>
                                 </div>
 
@@ -50,7 +49,7 @@
                                 <div class="layui-inline">
                                     <label class="layui-form-label">推荐功能</label>
                                     <div class="layui-input-inline">
-                                        <input type="checkbox" lay-skin="switch" lay-text="开启|关闭" value="飘落" name="founctionSwitch">
+                                        <input type="checkbox" lay-skin="switch" lay-text="开启|关闭" value="关闭" name="function" lay-filter="filterFunctionSwitch">
                                     </div>
                                 </div>
                             </div>
@@ -82,21 +81,37 @@
                     <div class="layui-colla-item">
                         <h2 class="layui-colla-title">会员服务</h2>
                         <div class="layui-colla-content layui-show">
+                            <table class="layui-table" id="serviceTable" lay-filter="filterServiceTable"></table>
                             <form class="layui-form" lay-filter="filterServicesTable">
                                 <div class="layui-form-item">
                                     <div class="layui-inline">
                                         <label class="layui-form-label">会员级别</label>
+                                        <div class="layui-input-inline" style="width: 100px">
+                                            <select id="levelSelect" name="levelSelect" id="levelSelect"></select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">服务名称</label>
+                                        <div class="layui-input-inline" style="width: 100px">
+                                            <select id="serviceSelect" name="serviceSelect" id="serviceSelect"></select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">服务次数</label>
+                                        <div class="layui-input-inline" style="width: 100px">
+                                            <input class="layui-input" type="text" placeholder="请输入次数" name="serviceTimes" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
                                         <div class="layui-input-inline">
-                                            <input class="layui-input" type="text" placeholder="请输入服务名称" name="serviceName" value="里边" autocomplete="off">
+                                            <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="addServiceFilter" id="addService">添加</button>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="layui-form-item">
-                                    <div class="layui-input-block">
-                                        <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="addServiceFilter" id="addService">添加</button>
-                                    </div>
-                                </div>
+
+
+
                             </form>
                         </div>
 
@@ -114,40 +129,40 @@
         </div>
 
     </div>
+
+    <script type="text/html" id="toolbarOperate">
+        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detail">查看</a>
+        <a class="layui-btn  layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+    </script>
+
+
     <script>
-        layui.use(['element', 'layer', 'table', 'form'], function () {
+        layui.use(['element', 'table', 'form'], function () {
             var $ = layui.$
                 , element = layui.element
-                , layer = layui.layer
                 , table = layui.table
                 , form = layui.form
-                , jq = layui.jquery
                 ;
 
-            table.render({
-                elem: "#levelTable "
-                , url: "/index/vip/index"
-                , height: 200
-                , cols: [[
-                    { type: "checkbox ", fixed: "left ", width: 50, fixed: "left" },
-                    { field: 'level_id ', title: "级别序号 ", width: 120 }
-                    , { field: 'level_name ', title: "级别名称 ", width: 120 }
-                    , { field: "sale_card_amount ", title: "售卡金额 ", width: 120 }
-                    , { field: "validity ", title: "有效期 ", width: 120 }
-                    , { field: "referral_integral ", title: "推荐人积分 ", width: 150 }
-                    , { field: "function ", title: "推荐功能 ", width: 120 }
-                    , { field: "cards_num ", title: "卡片总数 ", width: 120 }
-                    , { field: "wx_member ", title: "微信会员 ", width: 120 }
-                    , { field: "rights ", title: "会员权益 ", width: 120 }
-                    , { field: "notes ", title: "备注 ", width: 120 }
-                ]]
+
+
+            form.on('switch(filterFunctionSwitch)', function (data) {
+                this.value = (this.value == "关闭") ? "开启" : "关闭";
             });
+
 
 
             form.on('submit(addLevelFilter)', function (data) {
                 var param = data.field;
                 $.post('{:url("vip/addLevel")}', param, function (result) {
-                    if(result == 1){
+                    if (result == 1) {
+                        table.reload('levelTable', {
+                            page: {
+                                curr: 1
+                            }
+
+                        });
                     }
                 });
 
@@ -164,6 +179,57 @@
                 return false;
             });
 
+            table.render({
+                elem: "#levelTable "
+                , url: "/index/vip/index"
+                , height: 300
+                , width: 1000
+                , cols: [[
+                    { type: 'checkbox', fixed: "left ", width: 50, fixed: "left" },
+                    { field: 'level_id', title: "级别序号 ", width: 120 }
+                    , { field: 'level_name', title: "级别名称 ", width: 120 }
+                    , { field: 'sale_card_amount', title: "售卡金额 ", width: 120 }
+                    , { field: 'validity', title: "有效期 ", width: 120 }
+                    , { field: 'referral_integral', title: "推荐人积分 ", width: 150 }
+                    , { field: 'function', title: "推荐功能 ", width: 120 }
+                    , { field: 'cards_num', title: "卡片总数 ", width: 120 }
+                    , { field: 'wx_member', title: "微信会员 ", width: 120 }
+                    , { field: 'rights', title: "会员权益 ", width: 120 }
+                    , { field: 'notes', title: "备注 ", width: 120 }
+                    , { fixed: 'right', title: "操作", align: "center", width: 178, toolbar: '#toolbarOperate' }
+                ]]
+                , page: true
+            });
+
+
+            table.on('tool(filterLevelTable)', function (obj) {
+                var data = obj.data;
+
+                if (obj.event == "detail") {
+                    layer.alert(JSON.stringify(data));
+                } else if (obj.event == "edit") {
+                    layer.alert(JSON.stringify(data));
+                } else if (obj.event == "delete") {
+
+
+                    layer.confirm("确定要删除" + data.level_name + "吗？", { title: "删除提示" }, function (index) {
+                        $.post('{:url("vip/deleteLevel")}', data, function (result) {
+                            console.log(result);
+
+                            layer.close(index);
+                            if (result == 1) {
+                                table.reload("levelTable", {
+                                    page: { 
+                                        curr: 1
+                                    }
+                                });
+                            }
+
+                        });
+                    });
+                }
+
+            });
         });
 
     </script>
