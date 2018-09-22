@@ -12,7 +12,7 @@ namespace think;
 
 // 载入Loader类
 require __DIR__ . '/library/think/Loader.php';
-
+define('THINK_VERSION', '5.6.35');
 // 注册自动加载
 Loader::register();
 

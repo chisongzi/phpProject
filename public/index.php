@@ -21,6 +21,11 @@ define('IF_PUBLIC', true);
 define('ROOT_PATH', __DIR__ . DIRECTORY_SEPARATOR);
 define('APP_PATH', ROOT_PATH . 'application' . DIRECTORY_SEPARATOR);
 define('ROOT_URL', rtrim(dirname($_SERVER["SCRIPT_NAME"]), '\\/') . '/');
-
+// 定义版本号
+define('TPLAY_VERSION', '1.3.3');
+//重定义扩展类库目录
+define('EXTEND_PATH', __DIR__ . '/../extend/');
+//重定义第三方类库目录
+define('VENDOR_PATH', __DIR__ . '/../vendor/');
 // 执行应用并响应
 Container::get('app')->run()->send();
